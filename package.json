@@ -1,0 +1,44 @@
+{
+  "name": "@zgo/redux-middleware-async",
+  "version": "1.0.2",
+  "description": "redux-middleware-async",
+  "license": "MIT",
+  "repository": "https://github.com/zgoby/redux-middleware-async",
+  "keywords": [
+    "redux-middleware"
+  ],
+  "authors": [
+    "Zhiqiang Guo (https://github.com/zgo)"
+  ],
+  "unpkg": "dist/redux-middleware-async.min.js",
+  "module": "es/redux-middleware-async.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist",
+    "es",
+    "src",
+    "types"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/runtime": "^7.12.5",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "roolup": "^1.0.4",
+    "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "redux": "^4"
+  },
+  "scripts": {
+    "clean": "rimraf dist es types",
+    "check-types": "tsc --noEmit",
+    "build": "rollup -c"
+  }
+}
