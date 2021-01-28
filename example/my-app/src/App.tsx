@@ -12,7 +12,9 @@ function App({dispatch, number, loading}:TypeProps<{number: number, loading: Typ
     if (bool) {
       dispatch({
         type: 'add',
-        async: ()=>new Promise((resolve, reject) => {
+        async: ({
+          //some async dealer is provided
+        })=>new Promise((resolve, reject) => {
           setTimeout(()=>{resolve(100)}, 1000);
           // setTimeout(()=>{reject(100)}, 1000);
         }),

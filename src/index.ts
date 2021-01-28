@@ -20,16 +20,52 @@ export type TypeProps<T> = {
   dispatch: Dispatch<TypeAction>
 } & T;
 
-export type TypeAsyncFunc = ()=>Promise<any>;
+export type TypeAsyncFunc = (asyncProvider:any)=>Promise<any>;
 
-// const warning = (message: string): void => {
-//   if (typeof console !== 'undefined' && typeof console.error === 'function') {
-//     console.error(message)
+const warning = (message: string): void => {
+  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+    console.error(message)
+  }
+  try {
+    throw new Error(message)
+  } catch (e) {}
+}
+// interface External{
+//   methods: {
+//     [k:string]: any;
 //   }
-//   try {
-//     throw new Error(message)
-//   } catch (e) {}
 // }
+
+class External{
+  public methods:{[k:string]: any;}={};
+
+  private add(k:string, v:any){
+    if(typeof v === 'function'){
+      try{
+        v.caller;
+        v=v.bind(this.methods);
+      }catch(err){
+        if(!!this['add']) warning('if you use "=>function", you will lost pointer of current this');
+      }
+    }
+    this.methods[k] = v;
+    return true;
+  }
+  private delete(k:string){
+    return delete this.methods[k];
+  }
+  private clear(){
+    this.methods={};
+    return true;
+  }
+}
+
+const asyncProvider = {
+  dispalyName: '$$asyncProvider',
+  all: Promise.all,
+  race: Promise.race,
+  external: new External().methods,
+};
 
 const isFunc = (cb:Function):boolean => {
   if(typeof cb === "function") return true;
@@ -52,13 +88,13 @@ export default ({actionName='async', succuss: succussAll=(res)=>res, error: erro
       }
       try{
         let payload;
-        const results = await (AsyncFunc as TypeAsyncFunc)()
+        const results = await (AsyncFunc as TypeAsyncFunc)(asyncProvider)
         if(succuss && isFunc(succuss)){
           payload = succuss(results, ()=>succussAll(results));
         }else{
           payload = succussAll(results);
         }
-        return next({...otherAction, ...payload});
+        return payload ? next({...otherAction, ...payload}) : null;
       }catch(err){
         if(error && isFunc(error)){
           error(err,  ()=>errorAll(err));
