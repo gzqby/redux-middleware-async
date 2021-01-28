@@ -60,11 +60,13 @@ class External{
   }
 }
 
+export const external = new External();
+
 const asyncProvider = {
   dispalyName: '$$asyncProvider',
   all: Promise.all,
   race: Promise.race,
-  external: new External().methods,
+  external: external.methods,
 };
 
 const isFunc = (cb:Function):boolean => {
