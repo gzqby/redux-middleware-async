@@ -96,7 +96,7 @@ export default ({actionName='async', succuss: succussAll=(res)=>res, error: erro
         }else{
           payload = succussAll(results);
         }
-        return payload ? next({...otherAction, ...payload}) : null;
+        return payload ? Object.prototype.toString.call(payload) === '[object Object]' ? next({...otherAction, ...payload}) : next(otherAction) : null;
       }catch(err){
         if(error && isFunc(error)){
           error(err,  ()=>errorAll(err));
