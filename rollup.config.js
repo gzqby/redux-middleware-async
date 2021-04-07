@@ -7,7 +7,7 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 const extensions = ['.ts']
-const noDeclarationFiles = { compilerOptions: { declaration: false } }
+// const noDeclarationFiles = { compilerOptions: { declaration: false } }
 
 const babelRuntimeVersion = pkg.devDependencies['@babel/runtime'].replace(
   /^[^0-9]*/,
@@ -35,7 +35,7 @@ export default [
       nodeResolve({
         extensions,
       }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
+      typescript(),
       babel({
         extensions,
         plugins: [
@@ -61,7 +61,7 @@ export default [
       nodeResolve({
         extensions,
       }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
+      typescript(),
       babel({
         extensions,
         exclude: 'node_modules/**',

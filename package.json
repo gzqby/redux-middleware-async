@@ -1,22 +1,24 @@
 {
   "name": "@zgo/redux-middleware-async",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "redux-middleware-async",
   "license": "MIT",
   "repository": "https://github.com/zgoby/redux-middleware-async",
   "keywords": [
-    "redux-middleware"
+    "redux-middleware",
+    "redux-async",
+    "redux-thunk",
+    "redux-middleware-async"
   ],
   "authors": [
-    "Zhiqiang Guo (https://github.com/zgo)"
+    "zgo (https://github.com/zgoby)"
   ],
   "unpkg": "dist/redux-middleware-async.min.js",
   "module": "es/redux-middleware-async.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
-    "es",
-    "types"
+    "es"
   ],
   "devDependencies": {
     "@babel/core": "^7.12.10",

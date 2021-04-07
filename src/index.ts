@@ -37,25 +37,17 @@ const warning = (message: string): void => {
 // }
 
 class External{
-  public methods:{[k:string]: any;}={};
+  public methods = new Map<string, Function>();
 
-  private add(k:string, v:any){
-    if(typeof v === 'function'){
-      try{
-        v.caller;
-        v=v.bind(this.methods);
-      }catch(err){
-        if(!!this['add']) warning('if you use "=>function", you will lost pointer of current this');
-      }
-    }
-    this.methods[k] = v;
+  add(k:string, v:Function){
+    this.methods.set(k, v);
     return true;
   }
-  private delete(k:string){
-    return delete this.methods[k];
+  delete(k:string){
+    return this.methods.delete(k);
   }
-  private clear(){
-    this.methods={};
+  clear(){
+    this.methods.clear;
     return true;
   }
 }
